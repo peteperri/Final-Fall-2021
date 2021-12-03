@@ -51,6 +51,8 @@ public class RubyController : MonoBehaviour
 
     bool gameWon = false;
 
+    public bool unlimitedAmmo = false;
+
     public int ammo = 4;
 
     // Start is called before the first frame update
@@ -212,7 +214,7 @@ public class RubyController : MonoBehaviour
 
     void Launch()
     {
-        if (ammo > 0)
+        if (ammo > 0 || unlimitedAmmo)
         {
             GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
 
@@ -222,8 +224,15 @@ public class RubyController : MonoBehaviour
             animator.SetTrigger("Launch");
 
             PlaySound(throwSound);
-            ammo--;
-            ammoText.text = "Gears: " + ammo.ToString();
+            if(!unlimitedAmmo)
+            {
+                ammo--;
+                ammoText.text = "Gears: " + ammo.ToString();
+            }
+            else{
+                ammoText.text = "Gears: ∞";
+            }
+            
 
         }
     }

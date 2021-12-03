@@ -10,7 +10,7 @@ public class AmmoCollectible : MonoBehaviour
     {
         RubyController controller = other.GetComponent<RubyController>();
 
-        if (controller != null)
+        if (controller != null && !controller.unlimitedAmmo)
         {
 
             controller.ammo += 4;
