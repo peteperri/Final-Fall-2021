@@ -55,9 +55,12 @@ public class RubyController : MonoBehaviour
 
     public int ammo = 4;
 
+    public bool spidieKilled;
+
     // Start is called before the first frame update
     void Start()
     {
+        spidieKilled = false;
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
@@ -132,7 +135,7 @@ public class RubyController : MonoBehaviour
             scoreText.text = "Talk to Jambi to go to the next level.";
         }
 
-        if (robotsToFix == 0 && level == 2)
+        if (robotsToFix == 0 && level == 2 && spidieKilled == true)
         {
             gameWon = true;
         }

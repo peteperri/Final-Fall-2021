@@ -14,10 +14,11 @@ public class LittleRunningGuyController : MonoBehaviour
     private bool goingBottomRight = false;
     public float speed;
     private Vector3 rotationVector;
+    public AudioClip collectedClip;
 
     void Start()
     {
-        rotationVector = this.transform.rotation.eulerAngles;
+        rotationVector = transform.rotation.eulerAngles;
     }
     void FixedUpdate()
     {
@@ -25,7 +26,7 @@ public class LittleRunningGuyController : MonoBehaviour
             goingTopLeft = true;
             rotationVector.z = 0;
             transform.rotation = Quaternion.Euler(rotationVector);
-            this.transform.localScale = new Vector3(1f, 1f, 1f);
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
         if(cornerTopLeft.Equals(new Vector2(transform.position.x, transform.position.y))){
            goingBottomLeft = true;
@@ -36,7 +37,7 @@ public class LittleRunningGuyController : MonoBehaviour
             goingBottomRight = true;
             rotationVector.z = 0;
             transform.rotation = Quaternion.Euler(rotationVector);
-            this.transform.localScale = new Vector3(-1f, 1f, 1f);
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
         if(cornerBottomRight.Equals(new Vector2(transform.position.x, transform.position.y))){
             goingTopRight = true;
@@ -45,21 +46,21 @@ public class LittleRunningGuyController : MonoBehaviour
         }
 
         if(goingTopLeft){
-            this.transform.position = Vector2.MoveTowards(transform.position, cornerTopLeft, Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, cornerTopLeft, Time.deltaTime * speed);
             //Debug.Log("Moving to Top Left");
             if(new Vector2(transform.position.x, transform.position.y).Equals(cornerTopLeft)){
                 goingTopLeft = false;
             }
         }
         if(goingBottomLeft){
-            this.transform.position = Vector2.MoveTowards(transform.position, cornerBottomLeft, Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, cornerBottomLeft, Time.deltaTime * speed);
             //Debug.Log("Moving to Bottom Left");
             if(new Vector2(transform.position.x, transform.position.y).Equals(cornerBottomLeft)){
                 goingBottomLeft = false;
             }
         }
         if(goingBottomRight){
-            this.transform.position = Vector2.MoveTowards(transform.position, cornerBottomRight, Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, cornerBottomRight, Time.deltaTime * speed);
             //Debug.Log("Moving to Bottom Right");
             if(new Vector2(transform.position.x, transform.position.y).Equals(cornerBottomRight)){
                 goingBottomRight = false;
@@ -67,7 +68,7 @@ public class LittleRunningGuyController : MonoBehaviour
         }
 
         if(goingTopRight){
-            this.transform.position = Vector2.MoveTowards(transform.position, cornerTopRight, Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, cornerTopRight, Time.deltaTime * speed);
             //Debug.Log("Moving to Top Right");
             if(new Vector2(transform.position.x, transform.position.y).Equals(cornerTopRight)){
                 goingTopRight = false;
@@ -81,9 +82,11 @@ public class LittleRunningGuyController : MonoBehaviour
 
             if(player != null){
                 Debug.Log("Collided with the player");
+                AudioSource.PlayClipAtPoint(collectedClip, transform.position, 1);
                 player.unlimitedAmmo = true;
                 player.ammoText.text = "Gears: ∞";
                 Destroy(this.gameObject);
+                
             }
 
 
